@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "fwi"
-  spec.version       = "1.2.4"
+  spec.version       = "1.2.5"
   spec.authors       = ["Jaci Brunning"]
   spec.email         = ["jaci.brunning@gmail.com"]
 
@@ -14,4 +14,6 @@ Gem::Specification.new do |spec|
   spec.files = Dir.glob("lib/**/*") + ['fwi.gemspec', 'Gemfile', 'LICENSE']
   spec.executables   = ["fwi"]
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "json"
 end

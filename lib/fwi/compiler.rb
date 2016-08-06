@@ -1,5 +1,6 @@
 require 'fwi/compilers/cpp/compiler.rb'
 require 'fwi/compilers/js/compiler.rb'
+require 'fwi/compilers/bitmap/compiler.rb'
 # require_relative 'js/compiler.rb'
 
 require_relative 'parser.rb'
@@ -7,7 +8,8 @@ require 'optparse'
 
 COMPILERS = {
     "cpp" => CPPCompiler.new,
-    "js" => JSCompiler.new
+    "js" => JSCompiler.new,
+    "bitmap" => BitmapCompiler.new
 };
 
 options = {
