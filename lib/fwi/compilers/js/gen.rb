@@ -11,7 +11,7 @@ module Generator
             internal_type = "child" if type == :reference && member[:element_type] == :block
             internal_type = "u8" if type == :reference && member[:element_type] == :enum
             
-            param = member[:array].nil? ? "" : "int index#{mode == :setter ? ', ' : ''}"
+            param = member[:array].nil? ? "" : "index#{mode == :setter ? ', ' : ''}"
             custom_getter = member[:attribute_map]["getter"]
             custom_setter = member[:attribute_map]["setter"]
             custom_length = member[:attribute_map]["length_func"]
@@ -100,15 +100,16 @@ module Generator
         def gen_for_ns parent, name, ns, str, indent
             is_root = name == "<root>"
             has_parent = parent != "<root>"
-            unless has_parent
-                append str, indent, "var #{name} = {};" unless is_root
-            else
-                append str, indent, "#{parent}.#{name} = {};" unless is_root
-            end
 
             fqn_ns = name
             fqn_ns = parent + "." + fqn_ns if has_parent
 
+            unless has_parent
+                append str, indent, "var #{name} = FWI.util.exports().#{fqn_ns} || {};" unless is_root
+            else
+                append str, indent, "#{fqn_ns} = FWI.util.exports().#{fqn_ns} || {};" unless is_root
+            end
+            
             unless is_root
                 append(str, indent, "FWI.util.exports().#{fqn_ns} = #{fqn_ns};")
             end
@@ -137,7 +138,7 @@ module Generator
                     append str, indent, "};"
                 end
                 
-                if is_root
+                if is_root && element[:type] != :namespace
                     append(str, indent, "FWI.util.exports().#{fqn} = #{fqn};")
                 end
             end
