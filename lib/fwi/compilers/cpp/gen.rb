@@ -68,13 +68,13 @@ module Generator
             func_sig = ""
             if mode == :setter
                 func_name += custom_setter.nil? ? "set_#{name}" : custom_setter
-                func_sig = "void #{func_name}(#{param}#{ctype} value)"
+                func_sig = "FWIFUNC void #{func_name}(#{param}#{ctype} value)"
             elsif mode == :getter
                 func_name += custom_getter.nil? ? "get_#{name}" : custom_getter
-                func_sig = "#{ctype} #{func_name}(#{param})"
+                func_sig = "FWIFUNC #{ctype} #{func_name}(#{param})"
             elsif mode == :length
                 func_name += custom_length.nil? ? "#{name}_length" : custom_length
-                func_sig = "int #{func_name}(#{param})"
+                func_sig = "FWIFUNC int #{func_name}(#{param})"
             end
             func_sig += truncate ? ";" : ' {'
             index = member[:index]

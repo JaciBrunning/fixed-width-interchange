@@ -4,6 +4,14 @@
 #include <cstdlib>
 #include <inttypes.h>
 
+#ifndef FWIFUNC
+    #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+        #define API __declspec(dllexport)
+    #else
+        #define API
+    #endif
+#endif
+
 #define FWI_MEM_VAL(type, ptr, offset) *(type *)(ptr + offset)
 
 #define FWI_SET_BIT(expression, bit) (expression |= (1 << bit))
@@ -15,23 +23,23 @@ namespace FWI {
     struct Block {
         virtual ~Block() {};
 
-        virtual void allocate(bool zero = true) {
+        FWIFUNC virtual void allocate(bool zero = true) {
             if (zero)   _store = (char *)::calloc(SIZE, 1);
             else        _store = (char *)::malloc(SIZE);
             _update_ptr();
         }
-        virtual void free() {
+        FWIFUNC virtual void free() {
             ::free(_store);
         }
-        virtual void map_to(char *memory) {
+        FWIFUNC virtual void map_to(char *memory) {
             _store = memory;
             _update_ptr();
         }
-        virtual int copy_to(char *memory) {
+        FWIFUNC virtual int copy_to(char *memory) {
             ::memcpy(memory, _store, SIZE);
             return SIZE;
         }
-        char *get_store() {
+        FWIFUNC char *get_store() {
             return _store;
         }
         virtual void _update_ptr() {};
