@@ -234,11 +234,11 @@ class FWI.Block
 
     set_bool: (byte, bit, value) ->
         byte += @off
-        (@buf.bytes[byte] ^= (-(if value then 1 else 0) ^ @buf.bytes[byte]) & (1 << bit))
+        (@buf.bytes[Math.floor(byte)] ^= (-(if value then 1 else 0) ^ @buf.bytes[byte]) & (1 << bit))
         undefined
 
     get_bool: (byte, bit) ->
-        (@buf.bytes[byte + @off] & (1 << bit)) != 0;
+        (@buf.bytes[Math.floor(byte) + @off] & (1 << bit)) != 0;
 
     set_u8: (byte, val) ->
         @buf.bytes[byte + @off] = val & 0xff

@@ -328,12 +328,12 @@
 
     Block.prototype.set_bool = function(byte, bit, value) {
       byte += this.off;
-      this.buf.bytes[byte] ^= (-(value ? 1 : 0) ^ this.buf.bytes[byte]) & (1 << bit);
+      this.buf.bytes[Math.floor(byte)] ^= (-(value ? 1 : 0) ^ this.buf.bytes[byte]) & (1 << bit);
       return void 0;
     };
 
     Block.prototype.get_bool = function(byte, bit) {
-      return (this.buf.bytes[byte + this.off] & (1 << bit)) !== 0;
+      return (this.buf.bytes[Math.floor(byte) + this.off] & (1 << bit)) !== 0;
     };
 
     Block.prototype.set_u8 = function(byte, val) {
