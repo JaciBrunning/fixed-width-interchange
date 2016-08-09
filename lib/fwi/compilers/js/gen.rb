@@ -48,7 +48,7 @@ module Generator
                 if member[:array].nil?
                     append(str, indent + 1, "return this.get_bool(#{util[:index]}, #{member[:bit_index]});")
                 else
-                    append(str, indent + 1, "return this.get_bool(#{member[:index]} + index / 8, index % 8, value);")
+                    append(str, indent + 1, "return this.get_bool(#{member[:index]} + index / 8, index % 8);")
                 end
             else
                 append(str, indent + 1, "return this.get_#{util[:internal_type]}(#{util[:index]});")

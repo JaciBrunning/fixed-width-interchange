@@ -224,7 +224,7 @@ class FWI.Block
 
     set_bool: (byte, bit, value) ->
         byte += @off
-        (@buf.bytes[byte] ^= (-(if val then 1 else 0) ^ @buf.bytes[byte]) & (1 << bit))
+        (@buf.bytes[byte] ^= (-(if value then 1 else 0) ^ @buf.bytes[byte]) & (1 << bit))
         undefined
 
     get_bool: (byte, bit) ->

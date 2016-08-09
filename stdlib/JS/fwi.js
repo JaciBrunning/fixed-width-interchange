@@ -310,7 +310,7 @@
 
     Block.prototype.set_bool = function(byte, bit, value) {
       byte += this.off;
-      this.buf.bytes[byte] ^= (-(val ? 1 : 0) ^ this.buf.bytes[byte]) & (1 << bit);
+      this.buf.bytes[byte] ^= (-(value ? 1 : 0) ^ this.buf.bytes[byte]) & (1 << bit);
       return void 0;
     };
 
