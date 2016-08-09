@@ -170,6 +170,12 @@ class FWI.ByteBuffer
         @bytes[num] = 0 for num in [0...@length]
         undefined
     
+    map_to_string: (string) ->
+        for num in [0...@length]
+            cc = string.charCodeAt(num)
+            cc = 0 if cc == NaN
+            @bytes[num] = cc
+
     free: ->
         @bytes = null
         @length = 0
@@ -194,6 +200,10 @@ class FWI.Block
         @buf.allocate(@size)
         @off = 0
         this.update_children()
+        undefined
+
+    from_string: (string) ->
+        @buf.map_to_string(string)
         undefined
 
     map_to: (buffer, offset) ->

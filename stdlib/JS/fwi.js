@@ -233,6 +233,19 @@
       return void 0;
     };
 
+    ByteBuffer.prototype.map_to_string = function(string) {
+      var cc, j, num, ref, results;
+      results = [];
+      for (num = j = 0, ref = this.length; 0 <= ref ? j < ref : j > ref; num = 0 <= ref ? ++j : --j) {
+        cc = string.charCodeAt(num);
+        if (cc === NaN) {
+          cc = 0;
+        }
+        results.push(this.bytes[num] = cc);
+      }
+      return results;
+    };
+
     ByteBuffer.prototype.free = function() {
       this.bytes = null;
       this.length = 0;
@@ -270,6 +283,11 @@
       this.buf.allocate(this.size);
       this.off = 0;
       this.update_children();
+      return void 0;
+    };
+
+    Block.prototype.from_string = function(string) {
+      this.buf.map_to_string(string);
       return void 0;
     };
 
