@@ -50,6 +50,8 @@ module Generator
                 else
                     append(str, indent + 1, "return this.get_bool(#{member[:index]} + index / 8, index % 8);")
                 end
+            elsif type == :string
+                append(str, indent + 1, "return this.get_string(#{util[:index]}, #{member[:size]});")
             else
                 append(str, indent + 1, "return this.get_#{util[:internal_type]}(#{util[:index]});")
             end
@@ -69,6 +71,8 @@ module Generator
                 else
                     append(str, indent + 1, "this.set_bool(#{member[:index]} + index / 8, index % 8, value);")
                 end
+            elsif type == :string
+                append(str, indent + 1, "this.set_string(#{util[:index]}, value, value.length);")
             else
                 append(str, indent + 1, "this.set_#{util[:internal_type]}(#{util[:index]}, value);")
             end
