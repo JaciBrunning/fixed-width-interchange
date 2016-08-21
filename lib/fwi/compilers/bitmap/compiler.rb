@@ -13,7 +13,7 @@ class BitmapCompiler
         base = File.basename(file, File.extname(file))
         f = File.join(options[:output], base + ".bitmap")
         FileUtils.mkdir_p File.expand_path("..", f)
-        File.write(f, JSON.generate(bitmap))
+        File.write(f, JSON.pretty_generate(bitmap))
     end
 
 end

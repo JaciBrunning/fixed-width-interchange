@@ -307,7 +307,7 @@ module FWI
                         member[:size] = size
                         member[:index] = idx
                         member[:typesize] = TYPE_SIZES[t]
-                        idx += TYPE_SIZES[t] 
+                        idx += size
                     end
                 end
                 
